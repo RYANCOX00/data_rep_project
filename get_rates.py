@@ -22,9 +22,11 @@ def currency_rates():
 
     values = []
     for i in rates:
-        values.append(list((base, i, rates.get(i))))
+        values.append(list((rates.get(i), i)))
 
+        #values.append(list(rates.get(i), (i)))
 
-    query = "INSERT INTO currency_rates (base_name, foreign_name, foreign_rate) values (%s, %s, %s)"
+    query = "UPDATE currency_rates SET foreign_rate = %s WHERE foreign_name = %s"
 
     iud(query, values)
+

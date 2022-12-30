@@ -1,7 +1,7 @@
 #from create_tables import create_DB_tables as tables
 from get_rates import currency_rates as rates
 import sql_connect as sql
-import read_transactions
+import read_transactions as rt
 from flask import Flask, jsonify, request
 import json
 
@@ -9,6 +9,7 @@ import json
 # Function to refresh the rates in the database. 
 rates()
 
+# rt.transactions_to_db(FILENAME)
 
 app = Flask(__name__, static_url_path = '', static_folder='static')
 

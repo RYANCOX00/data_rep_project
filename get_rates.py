@@ -1,6 +1,6 @@
 import requests
 import json
-from sql_connect import insert_update_delete as iud
+from sql_connect import insertRates 
 
 
 def currency_rates():
@@ -22,11 +22,11 @@ def currency_rates():
 
     values = []
     for i in rates:
-        values.append(list((rates.get(i), i)))
+        
+        values.append(list((rates.get(i), (i))))
 
-        #values.append(list(rates.get(i), (i)))
-
+    # Update the rates already in the database. 
     query = "UPDATE currency_rates SET foreign_rate = %s WHERE foreign_name = %s"
 
-    iud(query, values)
+    insertRates(query, values)
 

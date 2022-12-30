@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!--Title of the page-->
+    <title>Treasury Manager - Latest Rates</title>
+
+    <!-- ajax library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+
+    <!--Tag of CSS code-->
+    <style type="text/css">
+        
+        /* CSS style for header - background colour and text allignment to centre */
+        #header{background-color: #83b8ac; text-align: center;}
+        
+        /* CSS style for header text - position down 15px from original positon. Font colour, size. */
+        .header_text{position: relative; top:15px; color: #4c2d85; font-size: 30px;}
+
+        /* Link to main heading, positioned relative to original position. */
+        #main{position: relative; right:190px; }
+
+        /* Link to rates heading, positioned relative to original position. */
+        #rates{position: relative; right: 90px; }
+
+        /* Link to financeReports heading, positioned relative to original position. */
+        #financeReports{position: relative; left:90px; }
+
+        /* Link to acquirer and merchant manager heading, positioned relative to original position. */
+        #customerSetup{position: relative; left:190px; }
+
+        /* Titles of main body, padding, centred, bold and large text. */
+        .summary{padding:10px; text-align: center; font-weight: bold; font-size: large;}
+
+        /* Font family for the full body is arial */
+        *{font-family: Arial;}
+
+        /* On links i.e. header, keeping format of parent element and removing underlining. */
+        a{color: inherit; font-weight: bold; text-decoration: none;}
+
+        /* Style for the class 'body' background colour and height - body except the header is in scope */
+        .body{background-color: #ffffff; min-height: 300px; padding-left:200px; padding-right:200px; padding-top:50px; padding-bottom:50px; text-align: justify;}
+
+        #border{width: 320px;  padding: 10px;  border: 2px solid gray;  margin: 0;}
+
+        
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <!--Div / class for the header for background colour-->
+<header id = "header">
+
+
+        <!--Image for the header width, title and alternative text set.-->
+        <img src="img/logo.png" width = "20%" title="header image" alt="header image">
+        <br>
+        
+         <!--Header title assigned-->
+        <h2 class="header_text">ABC Currency Solutions - Treasury Manager</h2>
+        <hr>
+
+
+         <!--Links to other pages-->
+        <p class="header_text">
+
+            <a id= main href="main.html" >Main</a>
+            
+            <a id = rates href="getRates.html"> View Latest Rates</a>
+        
+            <a id = financeReports href="financeReports.html" >Finance Reports</a>
+
+            <a id = customerSetup href="customerSetUp.html" >Acquirer and Merchant Manager</a>
+        </p>
+        <br>           
+    <hr>
+
+</header>
+
+<!-- Creating div and class for the main body to colour (excluding the header)-->
+<div class = "body"> 
+
+    <div class="summary">
+        <p id="result">Latest Currency Rates  </p>
+    </div>
+
+    <div>
+
+        <table id = "ratesTable" class="table">
+            <thead>
+              <tr>
+                <th scope="col">Rate ID</th>
+                <th scope="col">Base Name</th>
+                <th scope="col">Foreign Name</th>
+                <th scope="col">EUR to Foreign Rate</th>
+              </tr>
+            </thead>
+          </table>
+
+
+    </div>
+   
+
+</div>
+
+<script>
+
+                $.ajax({
+                    "url":"http://127.0.0.1:5000/getRates",
+                    "method":"GET",
+                    "data":"",
+                    "dataType":"JSON",
+                    "success":function(data){
+                        for (var i=0; i<data.length; i++) {
+                            var row = $('<tr ><td>' + data[i].rate_id+ '</td><td>' + data[i].base_name + '</td><td>' + data[i].foreign_name + '</td><td>' + data[i].foreign_rate + '</td></tr>');
+                                $('#ratesTable').append(row);
+                        }
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+                    }
+                });
+            
+
+
+</script>
+
+
+</body>
+
+</html>

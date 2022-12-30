@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!--Title of the page-->
+    <title>Treasury Manager - Latest Rates</title>
+
+    <!-- ajax library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+
+    <!--Tag of CSS code-->
+    <style type="text/css">
+        
+        /* CSS style for header - background colour and text allignment to centre */
+        #header{background-color: #83b8ac; text-align: center;}
+        
+        /* CSS style for header text - position down 15px from original positon. Font colour, size. */
+        .header_text{position: relative; top:15px; color: #4c2d85; font-size: 30px;}
+
+        /* Link to main heading, positioned relative to original position. */
+        #main{position: relative; right:190px; }
+
+        /* Link to rates heading, positioned relative to original position. */
+        #rates{position: relative; right: 90px; }
+
+        /* Link to financeReports heading, positioned relative to original position. */
+        #financeReports{position: relative; left:90px; }
+
+        /* Link to acquirer and merchant manager heading, positioned relative to original position. */
+        #customerSetup{position: relative; left:190px; }
+
+        /* Titles of main body, padding, centred, bold and large text. */
+        .summary{padding:10px; text-align: center; font-weight: bold; font-size: large;}
+
+        /* Font family for the full body is arial */
+        *{font-family: Arial;}
+
+        /* On links i.e. header, keeping format of parent element and removing underlining. */
+        a{color: inherit; font-weight: bold; text-decoration: none;}
+
+        /* Style for the class 'body' background colour and height - body except the header is in scope */
+        .body{background-color: #ffffff; min-height: 300px; padding-left:200px; padding-right:200px; padding-top:50px; padding-bottom:50px; text-align: justify;}
+
+        #border{width: 320px;  padding: 10px;  border: 2px solid gray;  margin: 0;}
+
+        
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <!--Div / class for the header for background colour-->
+<header id = "header">
+
+
+        <!--Image for the header width, title and alternative text set.-->
+        <img src="img/logo.png" width = "20%" title="header image" alt="header image">
+        <br>
+        
+         <!--Header title assigned-->
+        <h2 class="header_text">ABC Currency Solutions - Treasury Manager</h2>
+        <hr>
+
+
+         <!--Links to other pages-->
+        <p class="header_text">
+
+            <a id= main href="main.html" >Main</a>
+            
+            <a id = rates href="getRates.html"> View Latest Rates</a>
+        
+            <a id = financeReports href="financeReports.html" >Finance Reports</a>
+
+            <a id = customerSetup href="customerSetUp.html" >Acquirer and Merchant Manager</a>
+        </p>
+        <br>           
+    <hr>
+
+</header>
+
+<!-- Creating div and class for the main body to colour (excluding the header)-->
+<div class = "body"> 
+
+    <!-- Title-->
+    <div class="summary">
+        <p id="result"> Acquirer & Merchant Manager  </p>
+    </div>
+
+
+<!--Buttons/ options-->
+<div id ="border">
+    <h2>
+
+        Manage Acquirers
+
+    </h2>
+
+    <!--Button to view all transactions-->
+    <form method="get" >
+        <br>
+        <button id="showAllAcquirer_button">Show All Acquirers</button>
+        <br><br><br><br>       
+    </form>
+
+    <!--Request  a MID-->
+    <form method="delete">
+        <label for="but1">Delete Acquirer by ID:</label>
+        <input type="number" id="deleteAcqID" name="mid">  <br><br>
+        <button id="deleteAcquirer" value="val_1" name="but1">Click to Delete Acquirer by ID</button> <br><br><br><br>
+    </form>
+
+    <form method="create">
+        <label for="but2">Create Acquirer by Entering Name:</label>
+        <input type="text" id="newAcq" name="mid"><br><br>
+        <button id="createAcquirer" value="val_1" name="but2">Click to Create New Acquirer</button> <br><br><br><br>
+    </form>
+
+    <form method="update">
+        <p>Update Acqurier</p>
+        <label for="but3">Enter Acqurier ID:</label>
+        <input type="number" id="upAcqID" name="mid">  <br><br>
+        <label for="but3">Enter Updated Name:</label>
+        <input type="text" id="upAcqName" name="mid">  <br><br>
+        <button id="updateAcquirer" value="val_1" name="but3">Click to Update Acquirer</button> <br><br><br><br>
+    </form>
+
+    <button id = "clear" onclick="clear1()">Clear Acquirers</button> <br>
+
+</div>
+
+<br><br><br>
+    <!-- Initial table header - hidden initially-->
+    <div id =acquirers style = "display: none;">
+
+        <table id = "acquirerTable" class="table">
+            <thead>
+              <tr>
+                <th scope="col">Acquirer ID</th>
+                <th scope="col">Acquirer Name</th>
+
+              </tr>
+              <tbody id = "tablebody"> 
+              </tbody>
+            </thead>
+          </table>
+
+    </div>
+    <br><br><br><br>
+    
+    <div id ="border">
+        <h2>
+    
+            Manage Merchants
+    
+        </h2>
+    
+        <!--Button to view all transactions-->
+        <form method="get" >
+            <br>
+            <button id="showAllMerchants_button" >Show All Merchants</button>
+            <br><br><br><br>       
+        </form>
+    
+        <!--Request  a MID-->
+        <form method="delete">
+            <label for="but4">Delete Merchants by MID:</label>
+            <input type="number" id="delMerchID" name="mid">  <br><br>
+            <button id="deleteMerchants" value="val_1" name="but4">Click to Delete Merchant by ID</button> <br><br><br><br>
+        </form>
+    
+        <form method="create">
+            <p>Create Merchant</p>
+            <label for="but2">Enter Name:</label>
+            <input type="text" id="createMercName" >  <br><br>
+            <label for="but2">Enter Acquirer ID:</label>
+            <input type="text" id="createMercAID" >  <br><br>
+            <label for="but2">Enter Total Margin:</label>
+            <input type="text" id="createMercMargin" >  <br><br>
+            <label for="but2">Enter Acquirer Margin:</label>
+            <input type="text" id="createMercAcqMargin" >  <br><br>
+            <label for="but2">Enter ABC Currency Solutions Margin:</label>
+            <input type="text" id="createMerCompMargin" >  <br><br>
+            <button id="createMerchant" value="val_1" name="but2">Click to Create New Merchant</button> <br><br><br><br>
+        </form>
+
+
+        <form method="update">
+            <p>Update Merchant</p>
+            <label for="but2">Enter MID:</label> <br>
+            <input type="text" id="updateMercID">  <br><br>
+            <label for="but2">Update Merchant Name:</label>
+            <input type="text" id="updateMercName">  <br><br>
+            <label for="but2">Update Total Margin:</label>
+            <input type="text" id="updateMercMargin">  <br><br>
+            <label for="but2">Update Acquirer Margin:</label>
+            <input type="text" id="updateMercAcqMargin">  <br><br>
+            <label for="but2">Update ABC Currency Solutions Margin:</label>
+            <input type="text" id="updateMercCompMargin">  <br><br>
+            <button id="updateMerchant" value="val_1" name="but2">Click to Update Merchant</button> <br><br><br><br>
+        </form>
+    
+        <button id = "clear" onclick="clear2()">Clear Merchants</button> <br>
+    
+    </div>
+
+    <br>
+    
+        <!-- Initial table header - hidden initially-->
+        <div id =merchants style = "display: none;">
+    
+            <table id = "merchantsTable" class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Merchant ID</th>
+                    <th scope="col">Merchant Name</th>
+                    <th scope="col">Acquirer ID</th>
+                    <th scope="col">Acquirer Name</th>
+                    <th scope="col">Total Margin</th>
+                    <th scope="col">Acqurier Margin</th>
+                    <th scope="col">ABC Currency Solutions Margin</th>
+                  </tr>
+                  <tbody id = "tablebody2"> 
+    
+                  </tbody>
+                </thead>
+              </table>
+    
+        </div>
+       
+    </div>
+</div>
+
+
+<script>
+// Makes the acquirer table visible. 
+const targetDiv = document.getElementById("acquirers");
+    const btn = document.getElementById("showAllAcquirer_button");  
+    btn.onclick = function () {
+      targetDiv.style.display = "block";
+      };
+          
+// Clear the acquirers table and hides the headers.
+function clear1() {
+    // remove contents of the tablebody
+    document.getElementById("tablebody").innerHTML = "";
+    // hide the table header.
+    var x = document.getElementById("acquirers");
+    x.style.display = "none";
+    
+}
+
+// ajax call to return all acquirers. 
+$("#showAllAcquirer_button").on("click", function(e) {
+    e.preventDefault();
+                $.ajax({
+                    "url":"http://127.0.0.1:5000/customer/acquirer",
+                    "method":"GET",
+                    "data":"",
+                    "dataType":"JSON",
+                    "success":function(data){ 
+                            // Ensure the contents of the tablebody is empty 
+                            document.getElementById("tablebody").innerHTML = "";
+                        
+                            // Populate the table row by row.
+                        for (var i=0; i<data.length; i++) {
+                            var row = $('<tr ><td>' + data[i].acq_id+ '</td><td>' + data[i].name + '</td></tr>');
+                            $('#tablebody').append(row);
+                                                            }},
+                    
+                        error: function(jqXHR, textStatus, errorThrown){
+                            alert('Error: ' + textStatus + ' - ' + errorThrown);
+                                                                        }
+                        });
+                                                                    });
+
+
+
+
+///////////////////////////////////////////////////////
+
+// Shows the merchant table
+const targetDiv2 = document.getElementById("merchants");
+    const btn2 = document.getElementById("showAllMerchants_button");  
+    btn2.onclick = function () {
+      targetDiv2.style.display = "block";
+      };
+
+// Clear the merchant table and hides the headers.
+function clear2() {
+    // remove contents of the tablebody
+    document.getElementById("tablebody2").innerHTML = "";
+    // hide the table header.
+    var x = document.getElementById("merchants");
+    x.style.display = "none";
+                    }
+
+
+// ajax call to get all merchants. 
+$("#showAllMerchants_button").on("click", function(e) {
+    e.preventDefault();
+                $.ajax({
+                    "url":"http://127.0.0.1:5000/customer/merchant",
+                    "method":"GET",
+                    "data":"",
+                    "dataType":"JSON",
+                    "success":function(data){ 
+                            // Ensure the contents of the tablebody is empty 
+                            document.getElementById("tablebody2").innerHTML = "";
+                        
+                            // Populate the table row by row.
+                        for (var i=0; i<data.length; i++) {
+                            var row = $('<tr ><td>' + data[i].MID + '</td><td>' + data[i].merchant + '</td><td>' + data[i].acq_id + '</td><td>' + data[i].acquirer + '</td><td>'+ data[i].rate_margin + '</td><td>'+ data[i].acquirer_rate + '</td><td>'+ data[i].comp_rate + '</td></tr>');
+                                $('#tablebody2').append(row);
+                        }
+                        
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// ajax call to delete an acquirer. 
+$("#deleteAcquirer").on("click", function(e) {
+    e.preventDefault();
+
+                var acq_id = document.getElementById("deleteAcqID").value;
+                $.ajax({
+                    "url":"/acquirer/"+acq_id,
+                    "method":"DELETE",
+             
+                    "dataType":"JSON",
+                    "success":function(result){ 
+                        console.log("entry deleted from database") 
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// ajax call to create an acquirer. 
+$("#createAcquirer").on("click", function(e) {
+    e.preventDefault();
+
+                var acquirer = {}
+                acquirer.name = document.getElementById("newAcq").value;
+                
+                $.ajax({
+                    "url":"/new/acquirer",
+                    "method":"POST",
+                    "data": JSON.stringify(acquirer),
+                    "dataType":"JSON",
+                    contentType: "application/json; charset=utf-8",
+                    "success":function(result){ 
+                        console.log(result) 
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// ajax call to update an acquirer. 
+$("#updateAcquirer").on("click", function(e) {
+    e.preventDefault();
+
+                var acquirer = {}
+                var acq_id = document.getElementById("upAcqID").value;
+                acquirer.acq_id = acq_id 
+                acquirer.name = document.getElementById("upAcqName").value;
+                console.log(acquirer) 
+                $.ajax({
+                    "url":"/update/acquirer/"+encodeURI(acq_id),
+                    "method":"PUT",
+                    "data": JSON.stringify(acquirer),
+                    "dataType":"JSON",
+                    contentType: "application/json; charset=utf-8",
+                    "success":function(result){ 
+                        console.log(result) 
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+});
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// ajax call to delete an merchant. 
+$("#deleteMerchants").on("click", function(e) {
+    e.preventDefault();
+
+                var mid = document.getElementById("delMerchID").value;
+                $.ajax({
+                    "url":"/merchant/"+mid,
+                    "method":"DELETE",
+             
+                    "dataType":"JSON",
+                    "success":function(result){ 
+                        console.log("entry deleted from database") 
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+});
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// ajax call to create an acquirer. 
+$("#createMerchant").on("click", function(e) {
+    e.preventDefault();
+
+                var merchant = {}
+                merchant.name = document.getElementById("createMercName").value;
+                merchant.acq_id = document.getElementById("createMercAID").value;
+                merchant.margin = document.getElementById("createMercMargin").value;
+                merchant.acqMargin = document.getElementById("createMercAcqMargin").value;
+                merchant.CompMargin = document.getElementById("createMerCompMargin").value;
+                
+                $.ajax({
+                    "url":"/new/merchant",
+                    "method":"POST",
+                    "data": JSON.stringify(merchant),
+                    "dataType":"JSON",
+                    contentType: "application/json; charset=utf-8",
+                    "success":function(result){ 
+                        console.log(result) 
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+});
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// ajax call to update a merchant. 
+$("#updateMerchant").on("click", function(e) {
+    e.preventDefault();
+    
+                var merchant = {}
+                merchant.MID = document.getElementById("updateMercID").value; 
+                merchant.name = document.getElementById("updateMercName").value;
+                merchant.margin = document.getElementById("updateMercMargin").value;
+                merchant.acqMargin = document.getElementById("updateMercAcqMargin").value;
+                merchant.compMargin = document.getElementById("updateMercCompMargin").value;
+               
+
+                $.ajax({
+                    "url":"/update/merchant/"+encodeURI(merchant.MID),
+                    "method":"PUT",
+                    "data": JSON.stringify(merchant),
+                    "dataType":"JSON",
+                    contentType: "application/json; charset=utf-8",
+                    "success":function(result){ 
+                        console.log(result) 
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+});
+
+
+</script>
+
+
+</body>
+
+</html>

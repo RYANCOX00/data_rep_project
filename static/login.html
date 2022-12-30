@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!--Title of the page-->
+    <title>Treasury Manager - Login</title>
+
+
+    <!--Javescript code/ functions are in the functions.js file -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+
+    <!--Tag of CSS code-->
+    <style type="text/css"> 
+        
+        /* CSS style for header - background colour */
+        .header{background-color:  #83b8ac; text-align: center;}
+          
+        /* CSS style for header text - position down 15px from original positon. Font colour, size and centred. */
+        #header_text{position: relative; top:15px; color: #4c2d85; font-size: 30px; text-align: center;}
+        
+        /* Style for login box, padding of 20px and 50px down from div tag 'body' */
+        .login {padding:20px; position: relative; top:50px}
+        
+        /* Font family for the full body is arial */
+        *{font-family: Arial;}
+
+        /* Style for the class 'body' background colour and height - body except the header is in scope */
+        .body{background-color: #74b492; min-height: 300px; padding-left:200px; padding-right:200px; padding-top:50px; padding-bottom:50px; text-align: justify;}
+
+        /* ID style for the log in attempt result */
+        #error{color:red; font-style: italic;  }
+        #success{color:green;  font-style:italic;   }
+
+    </style>
+
+</head>
+
+
+<body>
+<header>
+
+    <!--Div / class for the header for background colour-->
+    <div class = "header">
+            
+            <!--Image for the header width, title and alternative text set.-->
+            <img src="img\logo.png" width = "20%" title="header image" alt="header image">
+            
+            <!--Header title assigned an ID - no need to call again-->
+            <h1 id="header_text"> Treasury Manager - Login</h1> <!--text for the header-->
+            <hr>
+
+
+    </div>
+
+</header>
+
+<!-- Creating div and class for the main body to colour (excluding the header)-->
+<div class = "body"> 
+
+    <!-- Div and class for the log in box-->
+    <div class="login">
+        <h2>
+           <p> Welcome to Treasury Mananger for ABC Currency Solutions.</p>
+           <br>
+           <p>Log in to continue.</p><br>
+        </h2> <br>
+
+  
+
+    <!--Block of code taken from: https://stackoverflow.com/questions/59704712/form-for-validation-and-open-link-in-same-page-->
+    <!--Form to accept specific user name and password creditentials-->
+    <form method="post" onsubmit="return validateForm();"> <!-- on submitting login details, return the JS function-->
+        Enter email : <input id='email' type='email'> <br><br>  <!-- Request email-->
+        Enter password : <input id='password' type='password'> <!-- Request password-->
+        <p id="error"></p>    <!-- blank paragraph for innerHTML to print, also id used for CSS - red text if error-->
+        <p id="sucess"></p>  <!-- blank paragraph for innerHTML to print, also id used for CSS - green text if success-->
+        <input type = "submit" value = "Login" />  <!-- submit button with text "login"-->
+    </form>
+    <!--end of reference-->
+<br>
+</div>
+
+
+
+</body>
+    </div>
+
+
+    <script>
+    
+    //Block of code taken from: https://stackoverflow.com/questions/59704712/form-for-validation-and-open-link-in-same-page-->
+    function validateForm(){  // Javascript function
+    var email = document.getElementById('email').value;  // saving the email address as a variable
+    var password = document.getElementById('password').value;  // saving the password address as a variable
+    if (email == 'user@finance.ie' && password == 'password'){  // if the email and password match the required login details
+        document.getElementById('sucess').innerHTML = 'sucessful login';  // print 'sucessful login' in success paragraph. 
+        
+        
+        window.location.href = 'main.html'   // redirect the page to the main page. 
+        return false;} 
+        
+        else {document.getElementById('error').innerHTML = 'invalid credentials';  // otherwise if login is not successful, print 'invalid credentials'. 
+        return false;}}
+    
+    
+    </script>
+
+</html>

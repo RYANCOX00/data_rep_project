@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!--Title of the page-->
+    <title>Treasury Manager - Latest Rates</title>
+
+    <!-- ajax library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+
+    <!--Tag of CSS code-->
+    <style type="text/css">
+        
+        /* CSS style for header - background colour and text allignment to centre */
+        #header{background-color: #83b8ac; text-align: center;}
+        
+        /* CSS style for header text - position down 15px from original positon. Font colour, size. */
+        .header_text{position: relative; top:15px; color: #4c2d85; font-size: 30px;}
+
+        /* Link to main heading, positioned relative to original position. */
+        #main{position: relative; right:190px; }
+
+        /* Link to rates heading, positioned relative to original position. */
+        #rates{position: relative; right: 90px; }
+
+        /* Link to financeReports heading, positioned relative to original position. */
+        #financeReports{position: relative; left:90px; }
+
+        /* Link to acquirer and merchant manager heading, positioned relative to original position. */
+        #customerSetup{position: relative; left:190px; }
+
+        /* Titles of main body, padding, centred, bold and large text. */
+        .summary{padding:10px; text-align: center; font-weight: bold; font-size: large;}
+
+        /* Font family for the full body is arial */
+        *{font-family: Arial;}
+
+        /* On links i.e. header, keeping format of parent element and removing underlining. */
+        a{color: inherit; font-weight: bold; text-decoration: none;}
+
+        /* Style for the class 'body' background colour and height - body except the header is in scope */
+        .body{background-color: #ffffff; min-height: 300px; padding-left:200px; padding-right:200px; padding-top:50px; padding-bottom:50px; text-align: justify;}
+
+        #border{width: 320px;  padding: 10px;  border: 2px solid gray;  margin: 0;}
+        
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <!--Div / class for the header for background colour-->
+<header id = "header">
+
+
+        <!--Image for the header width, title and alternative text set.-->
+        <img src="img/logo.png" width = "20%" title="header image" alt="header image">
+        <br>
+        
+         <!--Header title assigned-->
+        <h2 class="header_text">ABC Currency Solutions - Treasury Manager</h2>
+        <hr>
+
+
+         <!--Links to other pages-->
+        <p class="header_text">
+
+            <a id= main href="main.html" >Main</a>
+            
+            <a id = rates href="getRates.html"> View Latest Rates</a>
+        
+            <a id = financeReports href="financeReports.html" >Finance Reports</a>
+
+            <a id = customerSetup href="customerSetUp.html" >Acquirer and Merchant Manager</a>
+        </p>
+        <br>           
+    <hr>
+
+</header>
+
+<!-- Creating div and class for the main body to colour (excluding the header)-->
+<div class = "body"> 
+
+    <!-- Title-->
+    <div class="summary">
+        <p id="result">Finance Reports  </p>
+    </div>
+
+
+<!--Buttons/ options-->
+<div id ="border">
+    <h2>
+
+        View Transactions
+
+    </h2>
+
+    <!--Button to view all transactions-->
+    <form method="get">
+        <br>
+        <button id="transactions_button" >Show All Transactions</button><br><br><br>
+      
+    </form>
+
+    <!--Request  a MID-->
+    <form method="get">
+        <label for="mid">Enter Merchant ID:</label>
+        <input type="number" id="inputMID" name="mid">  <br><br>
+        <button id="transactionsByMID" value="val_1" name="but1">Search Transactions By Merchant ID</button> <br><br><br>
+    </form>
+
+    <button id = "clear" onclick="clear1()">Clear Report</button> <br>
+
+</div>
+
+    <!-- Initial table header - hidden initially-->
+    <div id =transactions style = "display: none;">
+
+        <table id = "ratesTable" class="table">
+            <thead>
+              <tr>
+                <th scope="col">Transaction ID</th>
+                <th scope="col">Merchant ID</th>
+                <th scope="col">Merchant Name</th>
+                <th scope="col">Foreign Currency</th>
+                <th scope="col">Foreign Amount</th>
+                <th scope="col">EUR Amount</th>
+                <th scope="col">Transaction Date</th>
+                <th scope="col">Processed Date</th>
+              </tr>
+              <tbody id = "tablebody"> 
+
+
+              </tbody>
+            </thead>
+          </table>
+
+    </div>
+    <br><br><br><br>
+    
+    <div id ="border">
+        <h2>
+    
+            View Commission Split
+    
+        </h2>
+    
+        <!--Button to view all transactions-->
+        <form method="get">
+            <br>
+            <button id="commissions_button" >Show All Commission Split</button>
+            <br>
+            <br>       
+        </form>
+    
+        <!--Request  a Acq_ID-->
+        <form method="get">
+            <label for="mid">Enter Acquirer ID:</label>
+            <input type="number" id="inputAID" name="aid">  <br><br>
+            <button id="commissionByAID" value="val_1" name="but1">Search Commission Split By Acquirer ID</button> <br><br>
+        </form>
+    
+        <button id = "clear" onclick="clear2()">Clear Report</button> <br>
+    
+    </div>
+
+    <br>
+    
+        <!-- Initial table header - hidden initially-->
+        <div id =commission style = "display: none;">
+    
+            <table id = "ratesTable2" class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Commission ID</th>
+                    <th scope="col">Acquirer ID</th>
+                    <th scope="col">Acquirer Name</th>
+                    <th scope="col">Total Commission in EUR</th>
+                    <th scope="col">Acqurier Commission in EUR</th>
+                    <th scope="col">ABC Currency Solutions Commission in EUR</th>
+                  </tr>
+                  <tbody id = "tablebody2"> 
+    
+    
+                  </tbody>
+                </thead>
+              </table>
+    
+        </div>
+       
+    
+    
+    </div>
+</div>
+
+<script>
+// Makes the transaction table visible. 
+const targetDiv = document.getElementById("transactions");
+    const btn = document.getElementById("transactions_button");  
+    btn.onclick = function () {
+      targetDiv.style.display = "block";
+      };
+
+
+// Makes the transaction table visible if they select to view by MID
+const targetDiv2 = document.getElementById("transactions");
+    const btn2 = document.getElementById("transactionsByMID");  
+    btn2.onclick = function () {
+      targetDiv2.style.display = "block";
+      };
+
+
+// Clear the transaction table and hides the headers.
+function clear1() {
+    // remove contents of the tablebody
+    document.getElementById("tablebody").innerHTML = "";
+    // hide the table header.
+    var x = document.getElementById("transactions");
+    x.style.display = "none";
+    
+}
+
+// ajax call to return all transactions. 
+$("#transactions_button").on("click", function(e) {
+    e.preventDefault();
+                $.ajax({
+                    "url":"http://127.0.0.1:5000/transactions/",
+                    "method":"GET",
+                    "data":"",
+                    "dataType":"JSON",
+                    "success":function(data){ 
+                            // Ensure the contents of the tablebody is empty 
+                            document.getElementById("tablebody").innerHTML = "";
+                        
+                            // Populate the table row by row.
+                        for (var i=0; i<data.length; i++) {
+                            var row = $('<tr ><td>' + data[i].trans_id+ '</td><td>' + data[i].mid + '</td><td>' + data[i].name + '</td><td>' + data[i].foreign_name + '</td><td>'+ data[i].foreign_amount + '</td><td>'+ data[i].base_amount + '</td><td>'+ data[i].transactionDate + '</td><td>'+ data[i].processedDate + '</td></tr>');
+                                $('#tablebody').append(row);
+                        }
+                        
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+});
+
+
+
+// ajax call to return transactions by MID.
+$("#transactionsByMID").on("click", function(e) {
+                e.preventDefault();
+                var mid = document.getElementById("inputMID").value;
+                $.ajax({
+                    "url":"http://127.0.0.1:5000/transactions/"+mid,
+                    "method":"GET",
+                    "data":"",
+                    "dataType":"JSON",
+                    "success":function(data){
+                            // Ensure the contents of the tablebody is empty 
+                            document.getElementById("tablebody").innerHTML = "";
+                        
+                        for (var i=0; i<data.length; i++) {
+                            var row = $('<tr ><td>' + data[i].trans_id+ '</td><td>' + data[i].mid + '</td><td>' + data[i].name + '</td><td>' + data[i].foreign_name + '</td><td>'+ data[i].foreign_amount + '</td><td>'+ data[i].base_amount + '</td><td>'+ data[i].transactionDate + '</td><td>'+ data[i].processedDate + '</td></tr>');
+                                $('#tablebody').append(row);
+                        }
+                        
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+});
+
+
+/////////////////////////////////////////////////////////////////
+
+// Makes the commission table visible. 
+const targetDiv3 = document.getElementById("commission");
+    const btn3 = document.getElementById("commissions_button");  
+    btn3.onclick = function () {
+      targetDiv3.style.display = "block";
+      };
+
+
+// Makes the transaction table visible if they select to view by AID
+const targetDiv4 = document.getElementById("commission");
+    const btn4 = document.getElementById("commissionByAID");  
+    btn4.onclick = function () {
+      targetDiv4.style.display = "block";
+      };
+
+
+// Clear the transaction table and hides the headers.
+function clear2() {
+    // remove contents of the tablebody
+    document.getElementById("tablebody2").innerHTML = "";
+    // hide the table header.
+    var x = document.getElementById("commission");
+    x.style.display = "none";
+    
+}
+
+// ajax call to return all transactions. 
+$("#commissions_button").on("click", function(e) {
+    e.preventDefault();
+                $.ajax({
+                    "url":"http://127.0.0.1:5000/commissionSplit/",
+                    "method":"GET",
+                    "data":"",
+                    "dataType":"JSON",
+                    "success":function(data){ 
+                            // Ensure the contents of the tablebody is empty 
+                            document.getElementById("tablebody2").innerHTML = "";
+                        
+                            // Populate the table row by row.
+                        for (var i=0; i<data.length; i++) {
+                            var row = $('<tr ><td>' + data[i].CID + '</td><td>' + data[i].acq_id + '</td><td>' + data[i].name + '</td><td>' + data[i].total_commission_amount + '</td><td>'+ data[i].acquirer_commission + '</td><td>'+ data[i].company_commision + '</td></tr>');
+                                $('#tablebody2').append(row);
+                        }
+                        
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+});
+
+
+
+
+$("#commissionByAID").on("click", function(e) {
+                e.preventDefault();
+                var acq_id = document.getElementById("inputAID").value;
+                $.ajax({
+                    "url":"http://127.0.0.1:5000/commissionSplit/"+acq_id,
+                    "method":"GET",
+                    "data":"",
+                    "dataType":"JSON",
+                    "success":function(data){ 
+                            // Ensure the contents of the tablebody is empty 
+                            document.getElementById("tablebody2").innerHTML = "";
+                        
+                            // Populate the table row by row.
+                        for (var i=0; i<data.length; i++) {
+                            var row = $('<tr ><td>' + data[i].CID + '</td><td>' + data[i].acq_id + '</td><td>' + data[i].name + '</td><td>' + data[i].total_commission_amount + '</td><td>'+ data[i].acquirer_commission + '</td><td>'+ data[i].company_commision + '</td></tr>');
+                                $('#tablebody2').append(row);
+                        }
+                        
+                    },
+                    
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+    });
+});
+
+
+
+
+
+            
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!--Title of the page-->
+    <title>Treasury Manager - Main Page</title>
+
+    <!--Javescript code/ functions are in the functions.js file -->
+    <script type='text/javascript' src="functions.js"></script>
+
+
+    <!--Tag of CSS code-->
+    <style type="text/css">
+        
+        /* CSS style for header - background colour and text allignment to centre */
+        #header{background-color: #83b8ac; text-align: center;}
+        
+        /* CSS style for header text - position down 15px from original positon. Font colour, size. */
+        .header_text{position: relative; top:15px; color: #4c2d85; font-size: 30px;}
+
+        /* Link to main heading, positioned relative to original position. */
+        #main{position: relative; right:190px; }
+
+        /* Link to rates heading, positioned relative to original position. */
+        #rates{position: relative; right: 90px; }
+
+        /* Link to financeReports heading, positioned relative to original position. */
+        #financeReports{position: relative; left:90px; }
+
+        /* Link to acquirer and merchant manager heading, positioned relative to original position. */
+        #customerSetup{position: relative; left:190px; }
+
+        /* Titles of main body, padding, centred, bold and large text. */
+        .summary{padding:10px; text-align: center; font-weight: bold; font-size: large;}
+
+        /* Font family for the full body is arial */
+        *{font-family: Arial;}
+
+        /* On links i.e. header, keeping format of parent element and removing underlining. */
+        a{color: inherit; font-weight: bold; text-decoration: none;}
+
+        /* Style for the class 'body' background colour and height - body except the header is in scope */
+        .body{background-color: #ffffff; min-height: 300px; padding-left:200px; padding-right:200px; padding-top:50px; padding-bottom:50px; text-align: justify;}
+
+        #border{width: 320px;  padding: 10px;  border: 2px solid gray;  margin: 0;}
+
+        
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <!--Div / class for the header for background colour-->
+<header id = "header">
+
+
+        <!--Image for the header width, title and alternative text set.-->
+        <img src="img/logo.png" width = "20%" title="header image" alt="header image">
+        <br>
+        
+         <!--Header title assigned-->
+        <h2 class="header_text">ABC Currency Solutions - Treasury Manager</h2>
+        <hr>
+
+
+         <!--Links to other pages-->
+        <p class="header_text">
+
+            <a id= main href="main.html" >Main</a>
+            
+            <a id = rates href="getRates.html"> View Latest Rates</a>
+        
+            <a id = financeReports href="financeReports.html" >Finance Reports</a>
+
+            <a id = customerSetup href="customerSetUp.html" >Acquirer and Merchant Manager</a>
+        </p>
+        <br>           
+    <hr>
+
+</header>
+
+<!-- Creating div and class for the main body to colour (excluding the header)-->
+<div class = "body"> 
+
+    <div class="summary">
+        <p id="result">Welcome to Treasury Manager.  </p>
+
+    </div>
+    <p>The business model for this company, "ABC Currency Solutions" is to provide a currency exchange solution for acquiring banks.  Each bank will have their own customers.  These customers are retail outlets also known as merchants.</p>
+    <p>Acquiring banks will accept mutli-currency transactions on behalf of merchants through their point of sale terminals. </p>
+    <p>ABC Currency Solutions mananges the full currency exchange and calculates the commission to be split between the acquirering bank and ABC Currency Solutions.</p>
+    <p>On this page you will be able to access all the tables from the Transaction Convertion database. These tables include: 
+        <ul>
+            <li>All acquirers</li>
+            <li>All merchants</li>
+            <li>Current exchange rates. </li>
+            <li>All transactions </li>
+            <li>Commission splits. </li>
+        </ul> </p>
+    <p>The exchange rates are available under the "View Latest Rates". <br>
+        The transaction and commission split reports are available under "Finance Reports". <br>
+        Acquirer and Merchant tables and be viewed and updated under "Acqurier and Merchant Manager". <br>
+    </p>
+
+   
+
+</div>
+</body>
+
+</html>
+<script></script>

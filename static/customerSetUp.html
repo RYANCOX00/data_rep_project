@@ -264,7 +264,7 @@ function clear1() {
 $("#showAllAcquirer_button").on("click", function(e) {
     e.preventDefault();
                 $.ajax({
-                    "url":"http://127.0.0.1:5000/customer/acquirer",
+                    "url":"/customer/acquirer",
                     "method":"GET",
                     "data":"",
                     "dataType":"JSON",
@@ -310,7 +310,7 @@ function clear2() {
 $("#showAllMerchants_button").on("click", function(e) {
     e.preventDefault();
                 $.ajax({
-                    "url":"http://127.0.0.1:5000/customer/merchant",
+                    "url":"/customer/merchant",
                     "method":"GET",
                     "data":"",
                     "dataType":"JSON",

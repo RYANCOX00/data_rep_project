@@ -51,6 +51,8 @@ Username: "user@finance.ie"
 <br>
 Password: "password"
 
+This program is also hosted on Python Anywhere available here: http://g00398251.pythonanywhere.com/login.html 
+
 <br>
 
 Once the initialProgram.py program is run, the user can send more transaction files to the program.  To send a new transaction file to the program, ensure the acquirer & merchant are set up in the GIU and uncomment "rt.transactions_to_db(FILENAME)" on line 12 of main.py and insert the correct filename.  Ensure the correct file format is followed as "transactions1.csv" in the initalSepUp folder. 

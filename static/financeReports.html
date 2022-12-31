@@ -234,7 +234,7 @@ function clear1() {
 $("#transactions_button").on("click", function(e) {
     e.preventDefault();
                 $.ajax({
-                    "url":"http://127.0.0.1:5000/transactions/",
+                    "url":"/transactions/",
                     "method":"GET",
                     "data":"",
                     "dataType":"JSON",
@@ -263,7 +263,7 @@ $("#transactionsByMID").on("click", function(e) {
                 e.preventDefault();
                 var mid = document.getElementById("inputMID").value;
                 $.ajax({
-                    "url":"http://127.0.0.1:5000/transactions/"+mid,
+                    "url":"/transactions/"+mid,
                     "method":"GET",
                     "data":"",
                     "dataType":"JSON",
@@ -317,7 +317,7 @@ function clear2() {
 $("#commissions_button").on("click", function(e) {
     e.preventDefault();
                 $.ajax({
-                    "url":"http://127.0.0.1:5000/commissionSplit/",
+                    "url":"/commissionSplit/",
                     "method":"GET",
                     "data":"",
                     "dataType":"JSON",
@@ -346,7 +346,7 @@ $("#commissionByAID").on("click", function(e) {
                 e.preventDefault();
                 var acq_id = document.getElementById("inputAID").value;
                 $.ajax({
-                    "url":"http://127.0.0.1:5000/commissionSplit/"+acq_id,
+                    "url":"/commissionSplit/"+acq_id,
                     "method":"GET",
                     "data":"",
                     "dataType":"JSON",
